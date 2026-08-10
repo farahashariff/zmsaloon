@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZM Beauty Saloon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#3E1533;
+    --plum-deep:#2A0E22;
+    --rose:#C97B84;
+    --blush:#F7E1E6;
+    --blush-soft:#FBF0F2;
+    --gold:#C9A24B;
+    --cream:#FFFBF8;
+    --ink:#2A0E22;
+    --ok:#3E7A5B;
+    --err:#B24545;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Poppins', sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Playfair Display', serif;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,251,248,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(62,21,51,0.08);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .brand{
+    font-family:'Playfair Display', serif;
+    font-weight:700; font-size:1.4rem; letter-spacing:0.5px;
+    color:var(--plum);
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);}
+  .nav-links{display:flex; gap:28px; font-size:0.92rem;}
+  .nav-links a{text-decoration:none; color:var(--plum); opacity:0.8; transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--plum); color:var(--cream); padding:10px 20px;
+    border-radius:30px; text-decoration:none; font-size:0.88rem; font-weight:500;
+    transition:background .2s;
+  }
+  .nav-cta:hover{background:var(--plum-deep);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:linear-gradient(160deg, var(--plum) 0%, var(--plum-deep) 55%, #1c0917 100%);
+    color:var(--blush-soft);
+    overflow:hidden;
+    padding:90px 0 110px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 85% 15%, rgba(201,162,75,0.18), transparent 45%),
+      radial-gradient(circle at 8% 85%, rgba(201,123,132,0.22), transparent 40%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative; display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.78rem; letter-spacing:2px; text-transform:uppercase;
+    color:var(--gold); font-weight:500; margin-bottom:22px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--gold);}
+  .hero h1{
+    font-size:3.1rem; font-weight:600; line-height:1.15; margin-bottom:22px;
+    color:#fff;
+  }
+  .hero h1 em{font-style:italic; color:var(--rose);}
+  .hero p.lead{
+    font-size:1.02rem; color:rgba(251,240,242,0.82); max-width:440px; margin-bottom:32px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold); color:var(--plum-deep); padding:14px 28px;
+    border-radius:30px; text-decoration:none; font-weight:600; font-size:0.92rem;
+    border:none; cursor:pointer; transition:transform .2s, box-shadow .2s;
+    display:inline-block;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(201,162,75,0.35);}
+  .btn-ghost{
+    border:1px solid rgba(251,240,242,0.35); color:#fff; padding:13px 26px;
+    border-radius:30px; text-decoration:none; font-size:0.92rem; font-weight:500;
+    transition:background .2s;
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.08);}
+  .hero-badge{
+    justify-self:end;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:18px; padding:26px 28px; text-align:center;
+    backdrop-filter:blur(4px);
+  }
+  .hero-badge .label{font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--rose); margin-bottom:10px;}
+  .hero-badge .time{font-family:'Playfair Display', serif; font-size:1.5rem; color:#fff; font-weight:600;}
+  .hero-badge .sub{font-size:0.8rem; color:rgba(251,240,242,0.7); margin-top:6px;}
+
+  .ribbon{
+    height:52px; margin-top:-1px;
+    background:var(--cream);
+  }
+  .ribbon svg{display:block; width:100%; height:52px;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:80px 0;}
+  .section-head{max-width:560px; margin-bottom:48px;}
+  .section-head .eyebrow{color:var(--rose);}
+  .section-head .eyebrow::before{background:var(--rose);}
+  .section-head h2{font-size:2.1rem; font-weight:600; color:var(--plum);}
+  .section-head p{color:#6b5763; margin-top:12px; font-size:0.96rem;}
+  .section.alt{background:var(--blush-soft);}
+
+  /* ---------- OFFERS ---------- */
+  .offers-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px;}
+  .offer-card{
+    background:#fff; border-radius:16px; padding:26px;
+    border:1px solid rgba(62,21,51,0.08);
+    position:relative; overflow:hidden;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .offer-card:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(62,21,51,0.1);}
+  .offer-card .tag{
+    position:absolute; top:0; right:0;
+    background:var(--gold); color:var(--plum-deep);
+    font-size:0.72rem; font-weight:600; padding:6px 14px;
+    border-bottom-left-radius:12px;
+  }
+  .offer-card h3{font-size:1.15rem; color:var(--plum); margin:8px 0 8px; padding-right:70px;}
+  .offer-card p{font-size:0.88rem; color:#6b5763; margin-bottom:14px;}
+  .offer-price{display:flex; align-items:baseline; gap:10px;}
+  .offer-price .now{font-family:'Playfair Display', serif; font-size:1.4rem; color:var(--rose); font-weight:700;}
+  .offer-price .was{font-size:0.85rem; color:#a89aa1; text-decoration:line-through;}
+  #offersEmpty{color:#a89aa1; font-size:0.9rem; display:none;}
+
+  /* ---------- SERVICES ---------- */
+  .services-list{display:flex; flex-direction:column; border-top:1px solid rgba(62,21,51,0.1);}
+  .service-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 4px; border-bottom:1px solid rgba(62,21,51,0.1);
+    gap:16px;
+  }
+  .service-row .info h4{font-size:1.05rem; color:var(--plum); font-weight:500; font-family:'Playfair Display', serif;}
+  .service-row .info p{font-size:0.85rem; color:#8a7982; margin-top:3px;}
+  .service-row .price{font-family:'Playfair Display', serif; font-weight:700; color:var(--gold); font-size:1.15rem; white-space:nowrap;}
+
+  /* ---------- BOOKING ---------- */
+  .booking-panel{
+    background:var(--plum); border-radius:24px; padding:52px;
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:44px;
+    color:var(--blush-soft);
+  }
+  .booking-info h2{color:#fff; font-size:1.9rem; margin-bottom:14px;}
+  .booking-info p{color:rgba(251,240,242,0.78); font-size:0.94rem; margin-bottom:22px;}
+  .booking-info .hours{
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12);
+    border-radius:14px; padding:18px 20px; font-size:0.88rem;
+  }
+  .booking-info .hours strong{color:var(--gold); display:block; margin-bottom:4px;}
+
+  .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{font-size:0.78rem; text-transform:uppercase; letter-spacing:1px; color:var(--rose);}
+  .field input, .field select{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:10px; padding:12px 14px; color:#fff; font-size:0.92rem;
+    font-family:'Poppins', sans-serif;
+  }
+  .field input::placeholder{color:rgba(255,255,255,0.4);}
+  .field input:focus, .field select:focus{outline:2px solid var(--gold); border-color:transparent;}
+  .field select option{color:#000;}
+  .submit-btn{
+    grid-column:1 / -1; margin-top:6px;
+  }
+  #bookingMsg{grid-column:1/-1; font-size:0.85rem; padding:10px 14px; border-radius:8px; display:none;}
+  #bookingMsg.ok{display:block; background:rgba(62,122,91,0.2); color:#a9dcc0; border:1px solid rgba(62,122,91,0.4);}
+  #bookingMsg.err{display:block; background:rgba(178,69,69,0.2); color:#f0b0b0; border:1px solid rgba(178,69,69,0.4);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--plum-deep); color:rgba(251,240,242,0.6); padding:40px 0 28px; font-size:0.85rem;}
+  footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;}
+  footer a{text-decoration:none; color:rgba(251,240,242,0.55); font-size:0.8rem;}
+  footer a:hover{color:var(--gold);}
+
+  /* ---------- ADMIN ---------- */
+  .admin-overlay{
+    position:fixed; inset:0; background:rgba(42,14,34,0.6);
+    display:none; align-items:center; justify-content:center; z-index:200; padding:20px;
+  }
+  .admin-overlay.show{display:flex;}
+  .admin-box{
+    background:#fff; border-radius:18px; padding:32px; max-width:420px; width:100%;
+  }
+  .admin-box h3{color:var(--plum); margin-bottom:6px; font-size:1.3rem;}
+  .admin-box p{font-size:0.85rem; color:#8a7982; margin-bottom:18px;}
+  .admin-box input{
+    width:100%; padding:12px 14px; border-radius:10px; border:1px solid #e3d5da;
+    margin-bottom:14px; font-family:'Poppins', sans-serif; font-size:0.92rem;
+  }
+  .admin-box .row{display:flex; gap:10px;}
+  .btn-secondary{
+    background:var(--blush); color:var(--plum); border:none; padding:12px 20px;
+    border-radius:30px; font-weight:500; cursor:pointer; font-size:0.88rem; flex:1;
+  }
+
+  .admin-panel{
+    position:fixed; inset:0; background:var(--cream); z-index:300;
+    display:none; overflow-y:auto;
+  }
+  .admin-panel.show{display:block;}
+  .admin-top{
+    background:var(--plum); color:#fff; padding:20px 0; position:sticky; top:0; z-index:2;
+  }
+  .admin-top .wrap{display:flex; justify-content:space-between; align-items:center;}
+  .admin-top h2{font-size:1.3rem;}
+  .admin-body{padding:36px 0 80px;}
+  .admin-card{
+    background:#fff; border:1px solid rgba(62,21,51,0.1); border-radius:16px;
+    padding:24px; margin-bottom:22px;
+  }
+  .admin-card h4{color:var(--plum); font-family:'Playfair Display', serif; margin-bottom:16px; font-size:1.1rem;}
+  .admin-item{
+    display:grid; grid-template-columns:1.4fr 1fr 0.9fr auto; gap:10px; align-items:center;
+    padding:10px 0; border-bottom:1px solid #f0e6e9;
+  }
+  .admin-item input{
+    padding:9px 10px; border:1px solid #e3d5da; border-radius:8px; font-size:0.85rem;
+    font-family:'Poppins', sans-serif;
+  }
+  .icon-btn{
+    background:none; border:1px solid #e3d5da; border-radius:8px; padding:8px 12px;
+    cursor:pointer; font-size:0.8rem; color:var(--err);
+  }
+  .add-btn{
+    margin-top:12px; background:var(--plum); color:#fff; border:none; padding:10px 18px;
+    border-radius:30px; font-size:0.85rem; cursor:pointer;
+  }
+  .save-note{font-size:0.8rem; color:#8a7982; margin-top:8px;}
+
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-badge{justify-self:start;}
+    .hero h1{font-size:2.3rem;}
+    .booking-panel{grid-template-columns:1fr; padding:32px 22px;}
+    .form-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .admin-item{grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>ZM Beauty Saloon</div>
+    <div class="nav-links">
+      <a href="#offers">Offers</a>
+      <a href="#services">Services</a>
+      <a href="#booking">Book Now</a>
+    </div>
+    <a href="#booking" class="nav-cta">Book Appointment</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Girls Only Saloon</div>
+      <h1>Where every look<br>begins with <em>you</em>.</h1>
+      <p class="lead">ZM Beauty Saloon is a private, ladies-only space for hair, skin, makeup and bridal care — open every single day.</p>
+      <div class="hero-ctas">
+        <a href="#booking" class="btn-primary">Book an Appointment</a>
+        <a href="#services" class="btn-ghost">View Services & Prices</a>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="label">Open Every Day</div>
+      <div class="time">9:00 AM – 9:00 PM</div>
+      <div class="sub">Walk-ins welcome · Bookings preferred</div>
+    </div>
+  </div>
+</header>
+<div class="ribbon">
+  <svg viewBox="0 0 1080 52" preserveAspectRatio="none"><path d="M0,20 C180,50 360,0 540,20 C720,40 900,0 1080,20 L1080,52 L0,52 Z" fill="#FFFBF8"></path></svg>
+</div>
+
+<section class="section" id="offers">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Current Deals</div>
+      <h2>Offers running this month</h2>
+      <p>Limited-time packages, updated by our team — grab one before it's gone.</p>
+    </div>
+    <div class="offers-grid" id="offersGrid"></div>
+    <p id="offersEmpty">No active offers right now — check back soon!</p>
+  </div>
+</section>
+
+<section class="section alt" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Our Menu</div>
+      <h2>Services & Pricing</h2>
+      <p>Everything we offer, from everyday grooming to bridal glam.</p>
+    </div>
+    <div class="services-list" id="servicesList"></div>
+  </div>
+</section>
+
+<section class="section" id="booking">
+  <div class="wrap">
+    <div class="booking-panel">
+      <div class="booking-info">
+        <h2>Reserve your spot</h2>
+        <p>Pick a service, choose your date & time, and share your details. We'll confirm your slot personally.</p>
+        <div class="hours">
+          <strong>Saloon Hours</strong>
+          Open every day, 9:00 AM – 9:00 PM
+        </div>
+      </div>
+      <form class="form-grid" id="bookingForm">
+        <div class="field full">
+          <label>Service</label>
+          <select id="fService" required></select>
+        </div>
+        <div class="field">
+          <label>Your Name</label>
+          <input type="text" id="fName" placeholder="e.g. Ayesha Khan" required>
+        </div>
+        <div class="field">
+          <label>Contact Number</label>
+          <input type="tel" id="fPhone" placeholder="03XX-XXXXXXX" required>
+        </div>
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="fDate" required>
+        </div>
+        <div class="field">
+          <label>Time</label>
+          <input type="time" id="fTime" min="09:00" max="21:00" required>
+        </div>
+        <div id="bookingMsg"></div>
+        <button type="submit" class="btn-primary submit-btn">Confirm Booking Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> ZM Beauty Saloon — Ladies Only.</div>
+    <a href="#" id="adminOpenLink">Saloon Staff Login</a>
+  </div>
+</footer>
+
+<!-- Admin login -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-box">
+    <h3>Staff Login</h3>
+    <p>Enter the saloon password to edit offers, services and prices.</p>
+    <input type="password" id="adminPassword" placeholder="Password">
+    <div class="row">
+      <button class="btn-secondary" id="adminCancel">Cancel</button>
+      <button class="btn-secondary" id="adminSubmit" style="background:var(--plum); color:#fff;">Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin panel -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-top">
+    <div class="wrap">
+      <h2>Saloon Dashboard</h2>
+      <button class="btn-secondary" id="adminClose" style="flex:none;">Close</button>
+    </div>
+  </div>
+  <div class="wrap admin-body">
+
+    <div class="admin-card">
+      <h4>Offers & Deals</h4>
+      <div id="adminOffers"></div>
+      <button class="add-btn" id="addOffer">+ Add Offer</button>
+    </div>
+
+    <div class="admin-card">
+      <h4>Services & Prices</h4>
+      <div id="adminServices"></div>
+      <button class="add-btn" id="addService">+ Add Service</button>
+    </div>
+
+    <p class="save-note">Changes save automatically to this browser. To reset everything to default, clear this browser's site data.</p>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = "zm_saloon_data_v1";
+const ADMIN_PASSWORD = "zmadmin123"; // change this to whatever you like
+const OWNER_EMAIL = "abdullah.datascietist@gmail.com";
+
+const DEFAULT_DATA = {
+  offers: [
+    { title: "Bridal Trial Package", desc: "Includes hair trial, makeup trial & skin consultation.", price: 8000, wasPrice: 12000, tag: "Save 33%" },
+    { title: "Hair Spa + Facial Combo", desc: "Deep conditioning hair spa with a brightening facial.", price: 3500, wasPrice: 5000, tag: "Combo Deal" },
+    { title: "Weekend Glow Special", desc: "Facial, threading and manicure — Fri to Sun only.", price: 2500, wasPrice: 3500, tag: "Weekend Only" }
+  ],
+  services: [
+    { name: "Haircut & Style", desc: "Wash, cut and blow-dry", price: 1200 },
+    { name: "Hair Coloring", desc: "Full head, ammonia-free color", price: 4500 },
+    { name: "Classic Facial", desc: "Deep cleanse and glow facial", price: 2000 },
+    { name: "Manicure & Pedicure", desc: "Full hand and foot care", price: 1800 },
+    { name: "Threading (Full Face)", desc: "Eyebrows, upper lip & chin", price: 400 },
+    { name: "Party Makeup", desc: "HD makeup with hairstyle", price: 6000 },
+    { name: "Bridal Makeup", desc: "Full bridal look with trial", price: 25000 }
+  ]
+};
+
+function loadData(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+function saveData(data){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+let data = loadData();
+
+function fmt(n){ return "Rs. " + Number(n).toLocaleString(); }
+
+/* ---------- Public render ---------- */
+function renderPublic(){
+  const offersGrid = document.getElementById('offersGrid');
+  const offersEmpty = document.getElementById('offersEmpty');
+  offersGrid.innerHTML = "";
+  if(!data.offers.length){
+    offersEmpty.style.display = "block";
+  } else {
+    offersEmpty.style.display = "none";
+    data.offers.forEach(o=>{
+      const card = document.createElement('div');
+      card.className = "offer-card";
+      card.innerHTML = `
+        ${o.tag ? `<div class="tag">${escapeHtml(o.tag)}</div>` : ""}
+        <h3>${escapeHtml(o.title)}</h3>
+        <p>${escapeHtml(o.desc)}</p>
+        <div class="offer-price">
+          <span class="now">${fmt(o.price)}</span>
+          ${o.wasPrice ? `<span class="was">${fmt(o.wasPrice)}</span>` : ""}
+        </div>`;
+      offersGrid.appendChild(card);
+    });
+  }
+
+  const servicesList = document.getElementById('servicesList');
+  servicesList.innerHTML = "";
+  data.services.forEach(s=>{
+    const row = document.createElement('div');
+    row.className = "service-row";
+    row.innerHTML = `
+      <div class="info">
+        <h4>${escapeHtml(s.name)}</h4>
+        <p>${escapeHtml(s.desc)}</p>
+      </div>
+      <div class="price">${fmt(s.price)}</div>`;
+    servicesList.appendChild(row);
+  });
+
+  const select = document.getElementById('fService');
+  select.innerHTML = data.services.map(s=>`<option value="${escapeHtml(s.name)}">${escapeHtml(s.name)} — ${fmt(s.price)}</option>`).join("");
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+/* ---------- Booking form ---------- */
+document.getElementById('bookingForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('fName').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const service = document.getElementById('fService').value;
+  const date = document.getElementById('fDate').value;
+  const time = document.getElementById('fTime').value;
+  const msgBox = document.getElementById('bookingMsg');
+
+  if(time && (time < "09:00" || time > "21:00")){
+    msgBox.className = "err";
+    msgBox.textContent = "Please choose a time between 9:00 AM and 9:00 PM.";
+    return;
+  }
+
+  const subject = `New Booking Request — ${name}`;
+  const body =
+`New appointment request from ZM Beauty Saloon website:
+
+Name: ${name}
+Contact Number: ${phone}
+Service: ${service}
+Preferred Date: ${date}
+Preferred Time: ${time}`;
+
+  const mailtoLink = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailtoLink;
+
+  msgBox.className = "ok";
+  msgBox.textContent = "Your email app is opening with the booking details — just hit Send to confirm your request.";
+});
+
+/* ---------- Admin ---------- */
+const adminOverlay = document.getElementById('adminOverlay');
+const adminPanel = document.getElementById('adminPanel');
+
+document.getElementById('adminOpenLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  document.getElementById('adminPassword').value = "";
+  adminOverlay.classList.add('show');
+});
+document.getElementById('adminCancel').addEventListener('click', ()=> adminOverlay.classList.remove('show'));
+document.getElementById('adminSubmit').addEventListener('click', ()=>{
+  const pass = document.getElementById('adminPassword').value;
+  if(pass === ADMIN_PASSWORD){
+    adminOverlay.classList.remove('show');
+    adminPanel.classList.add('show');
+    renderAdmin();
+  } else {
+    alert("Incorrect password.");
+  }
+});
+document.getElementById('adminClose').addEventListener('click', ()=> adminPanel.classList.remove('show'));
+
+function renderAdmin(){
+  const offersWrap = document.getElementById('adminOffers');
+  offersWrap.innerHTML = "";
+  data.offers.forEach((o, i)=>{
+    const row = document.createElement('div');
+    row.className = "admin-item";
+    row.innerHTML = `
+      <input value="${escapeAttr(o.title)}" data-type="offer" data-idx="${i}" data-field="title" placeholder="Offer title">
+      <input value="${escapeAttr(o.desc)}" data-type="offer" data-idx="${i}" data-field="desc" placeholder="Description">
+      <input value="${o.price}" type="number" data-type="offer" data-idx="${i}" data-field="price" placeholder="Price">
+      <button class="icon-btn" data-type="offer" data-idx="${i}">Delete</button>`;
+    offersWrap.appendChild(row);
+  });
+
+  const servicesWrap = document.getElementById('adminServices');
+  servicesWrap.innerHTML = "";
+  data.services.forEach((s, i)=>{
+    const row = document.createElement('div');
+    row.className = "admin-item";
+    row.innerHTML = `
+      <input value="${escapeAttr(s.name)}" data-type="service" data-idx="${i}" data-field="name" placeholder="Service name">
+      <input value="${escapeAttr(s.desc)}" data-type="service" data-idx="${i}" data-field="desc" placeholder="Description">
+      <input value="${s.price}" type="number" data-type="service" data-idx="${i}" data-field="price" placeholder="Price">
+      <button class="icon-btn" data-type="service" data-idx="${i}">Delete</button>`;
+    servicesWrap.appendChild(row);
+  });
+
+  document.querySelectorAll('.admin-item input').forEach(inp=>{
+    inp.addEventListener('input', onAdminEdit);
+  });
+  document.querySelectorAll('.admin-item .icon-btn').forEach(btn=>{
+    btn.addEventListener('click', onAdminDelete);
+  });
+}
+
+function escapeAttr(str){ return escapeHtml(str); }
+
+function onAdminEdit(e){
+  const el = e.target;
+  const type = el.dataset.type, idx = Number(el.dataset.idx), field = el.dataset.field;
+  const list = type === 'offer' ? data.offers : data.services;
+  let val = el.value;
+  if(field === 'price') val = Number(val) || 0;
+  list[idx][field] = val;
+  saveData(data);
+  renderPublic();
+}
+function onAdminDelete(e){
+  const type = e.target.dataset.type, idx = Number(e.target.dataset.idx);
+  const list = type === 'offer' ? data.offers : data.services;
+  list.splice(idx,1);
+  saveData(data);
+  renderAdmin();
+  renderPublic();
+}
+
+document.getElementById('addOffer').addEventListener('click', ()=>{
+  data.offers.push({title:"New Offer", desc:"Describe the deal", price:1000, wasPrice:null, tag:"New"});
+  saveData(data);
+  renderAdmin();
+  renderPublic();
+});
+document.getElementById('addService').addEventListener('click', ()=>{
+  data.services.push({name:"New Service", desc:"Short description", price:500});
+  saveData(data);
+  renderAdmin();
+  renderPublic();
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+renderPublic();
+</script>
+</body>
+</html>
